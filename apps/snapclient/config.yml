@@ -1,0 +1,27 @@
+version: "1.0"
+
+groups:
+  - id: snapcast
+    label: Snapcast Settings
+    description: Connection settings for the Snapcast server
+    fields:
+      - id: SNAPSERVER_HOST
+        label: Snapcast Server Host
+        type: string
+        default: halos.local
+        required: true
+        description: Hostname or IP of the Snapcast server (defaults to the local HaLOS instance)
+
+      - id: SNAPCLIENT_SOUNDCARD
+        label: Sound Card
+        type: string
+        default: default
+        required: true
+        description: ALSA sound card to use for audio output (run 'aplay -L' on the host to list options)
+
+      - id: SNAPCLIENT_NAME
+        label: Player Name
+        type: string
+        default: Saloon
+        required: true
+        description: Display name for this Snapcast client (shown in the Music Assistant player list)
