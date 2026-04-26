@@ -15,7 +15,7 @@ long_description: |
   - First-class Music Assistant integration (media_player entities,
     services, automations)
 homepage: https://www.home-assistant.io/
-maintainer: Stig Dreyer <stig@example.com>
+maintainer: Stig Dreyer <stig.dreyer@busy-brain.de>
 license: Apache-2.0
 tags:
   - role::container-app

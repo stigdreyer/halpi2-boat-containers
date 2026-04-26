@@ -17,7 +17,7 @@ long_description: |
   - Filesystem (offline local library, mounted at /library)
   - Snapcast (uses MA's bundled Snapserver)
 homepage: https://www.music-assistant.io/
-maintainer: Stig Dreyer <stig@example.com>
+maintainer: Stig Dreyer <stig.dreyer@busy-brain.de>
 license: Apache-2.0
 tags:
   - role::container-app

@@ -10,7 +10,7 @@ long_description: |
   /dev/snd. Multi-room audio is a future iteration: deploy more snapclient
   instances per zone and they all sync against the same Snapserver.
 homepage: https://github.com/badaix/snapcast
-maintainer: Stig Dreyer <stig@example.com>
+maintainer: Stig Dreyer <stig.dreyer@busy-brain.de>
 license: GPL-3.0
 tags:
   - role::container-app

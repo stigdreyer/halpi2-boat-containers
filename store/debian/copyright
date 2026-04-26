@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: boat-container-store
-Upstream-Contact: Stig Dreyer <stig@example.com>
+Upstream-Contact: Stig Dreyer <stig.dreyer@busy-brain.de>
 Source: https://github.com/stigdreyer/halpi2-boat-containers
 
 Files: *

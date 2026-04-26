@@ -1,7 +1,7 @@
 Source: boat-container-store
 Section: admin
 Priority: optional
-Maintainer: Stig Dreyer <stig@example.com>
+Maintainer: Stig Dreyer <stig.dreyer@busy-brain.de>
 Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.6.0
 Homepage: https://github.com/stigdreyer/halpi2-boat-containers
