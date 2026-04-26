@@ -46,6 +46,4 @@ layout:
   priority: 70
   width: 2
   height: 2
-default_config:
-  # No user-facing config in v1 — providers (Spotify creds, library scan
-  # paths, Snapcast target) are configured inside MA's own UI after install.
+default_config: {}

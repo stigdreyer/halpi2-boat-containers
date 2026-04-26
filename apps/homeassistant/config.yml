@@ -1,3 +1,12 @@
 version: "1.0"
 
-groups: []
+groups:
+  - id: general
+    label: General Settings
+    fields:
+      - id: HA_TZ
+        label: Timezone
+        type: string
+        default: Europe/Oslo
+        required: true
+        description: Timezone for Home Assistant (e.g. Europe/Oslo, Atlantic/Canary)
