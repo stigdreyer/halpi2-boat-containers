@@ -1,0 +1,46 @@
+name: Home Assistant
+app_id: homeassistant
+version: 2026.4.0-1
+upstream_version: stable
+description: Open-source home automation platform
+long_description: |
+  Home Assistant is the central automation hub for the boat. It controls
+  lights, monitors instrumentation, and surfaces media controls for Music
+  Assistant via the official Music Assistant integration.
+
+  Features:
+  - Web UI / Lovelace dashboards
+  - Thousands of integrations
+  - Powerful automation engine
+  - First-class Music Assistant integration (media_player entities,
+    services, automations)
+homepage: https://www.home-assistant.io/
+maintainer: Stig Dreyer <stig@example.com>
+license: Apache-2.0
+tags:
+  - role::container-app
+  - field::boat
+  - category::automation
+  - interface::web
+  - use::organizing
+debian_section: web
+architecture: all
+depends:
+  - docker.io (>= 20.10) | docker-ce (>= 20.10)
+web_ui:
+  enabled: true
+  path: /
+  port: 8123
+  protocol: http
+  visible: true
+routing:
+  # Home Assistant has its own auth; let it handle login. Traefik just routes.
+  auth:
+    mode: none
+layout:
+  priority: 60
+  width: 2
+  height: 2
+default_config:
+  # Override on install if your boat is in a different timezone.
+  HA_TZ: Europe/Oslo

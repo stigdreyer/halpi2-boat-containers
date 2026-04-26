@@ -1,0 +1,22 @@
+Source: boat-container-store
+Section: admin
+Priority: optional
+Maintainer: Stig Dreyer <stig@example.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.0
+Homepage: https://github.com/stigdreyer/halpi2-boat-containers
+
+Package: boat-container-store
+Architecture: all
+Tag: role::container-store
+Description: Boat container application store for Cockpit Container Apps
+ This package provides the store definition and branding for the Boat
+ container application store, designed to work with cockpit-container-apps
+ on a HALPI2 running HaLOS.
+ .
+ When installed alongside cockpit-container-apps, it enables a curated view
+ of boat-specific applications: Home Assistant for automation, Music
+ Assistant for streaming and local-library playback, and a Snapcast client
+ for HDMI audio output.
+ .
+ The store filters packages with the `field::boat` debtag.

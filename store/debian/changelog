@@ -1,0 +1,7 @@
+boat-container-store (0.1.0-1) stable; urgency=medium
+
+  * Initial release.
+  * Defines the "boat" container app store for Cockpit Container Apps.
+  * Filters packages with the field::boat tag.
+
+ -- Stig Dreyer <stig@example.com>  Mon, 27 Apr 2026 10:00:00 +0200

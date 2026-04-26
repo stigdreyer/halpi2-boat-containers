@@ -1,0 +1,25 @@
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    init: true
+    restart: unless-stopped
+    logging:
+      driver: journald
+      options:
+        tag: "{{.Name}}"
+    environment:
+      - TZ=${HA_TZ:-Europe/Oslo}
+    volumes:
+      - ${CONTAINER_DATA_ROOT}/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8123/manifest.json"]
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 5
+    # halos-proxy-network is auto-injected by container-packaging-tools.
+    # Web UI on :8123 is reached by Traefik via that network — no `ports:`
+    # needed. If LAN device discovery (Bluetooth, mDNS scan) is wanted later,
+    # switch to `network_mode: host` and drop the network injection.

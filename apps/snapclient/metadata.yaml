@@ -1,0 +1,38 @@
+name: Snapcast Client
+app_id: snapclient
+version: 0.31.0-1
+upstream_version: 0.31.0
+description: Snapcast client for HDMI audio playback
+long_description: |
+  Snapcast client that connects to the Snapserver bundled with Music
+  Assistant and plays audio out the host's ALSA device — i.e. the HDMI port
+  of the HALPI2. This is the only container in the boat stack that holds
+  /dev/snd. Multi-room audio is a future iteration: deploy more snapclient
+  instances per zone and they all sync against the same Snapserver.
+homepage: https://github.com/badaix/snapcast
+maintainer: Stig Dreyer <stig@example.com>
+license: GPL-3.0
+tags:
+  - role::container-app
+  - field::boat
+  - category::audio
+  - sound::player
+debian_section: sound
+architecture: all
+depends:
+  - docker.io (>= 20.10) | docker-ce (>= 20.10)
+  - boat-music-assistant-container
+web_ui:
+  enabled: false
+routing:
+  auth:
+    mode: none
+default_config:
+  # Hostname or IP of the Snapserver. `halos.local` resolves to the host
+  # itself when running on the HALPI2.
+  SNAPSERVER_HOST: halos.local
+  # ALSA device. `default` matches the active HDMI sink on a Pi CM5 with
+  # only HDMI wired. Run `aplay -L` on the host to confirm.
+  SNAPCLIENT_SOUNDCARD: default
+  # Logical room name shown in MA. Override per zone for multi-room.
+  SNAPCLIENT_NAME: Saloon

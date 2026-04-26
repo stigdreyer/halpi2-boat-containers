@@ -1,0 +1,29 @@
+id: boat
+name: Boat Media & Automation
+description: |
+  Applications for a HALPI2-based boat computer. Home Assistant for
+  automation, Music Assistant for streaming + radio + local library, and a
+  Snapcast client for HDMI audio playback.
+
+icon: /usr/share/container-stores/boat/icon.svg
+
+filters:
+  # Tag-based filter — apps that ship with `field::boat` show up in this store
+  include_tags:
+    - field::boat
+
+category_metadata:
+  - id: media
+    label: Media
+    icon: MusicIcon
+    description: Music players, radio, and audio streaming
+
+  - id: automation
+    label: Automation
+    icon: HomeAutomationIcon
+    description: Home Assistant and related automation tooling
+
+  - id: audio
+    label: Audio Plumbing
+    icon: SpeakerIcon
+    description: Snapcast clients and audio routing components

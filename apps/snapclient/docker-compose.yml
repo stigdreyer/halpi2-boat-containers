@@ -1,0 +1,28 @@
+services:
+  snapclient:
+    # Build from the Dockerfile shipped in this package. After install, the
+    # build context is /var/lib/container-apps/boat-snapclient-container/.
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: snapclient
+    init: true
+    restart: unless-stopped
+    logging:
+      driver: journald
+      options:
+        tag: "{{.Name}}"
+    # Snapcast clients use mDNS / TCP discovery on the LAN; host networking
+    # is the standard pattern. This also keeps the client off
+    # halos-proxy-network (no web UI to publish anyway).
+    network_mode: host
+    # /dev/snd is the only audio device on the HALPI2; HDMI is the default
+    # sink when nothing else is wired.
+    devices:
+      - /dev/snd
+    group_add:
+      - audio
+    command: >
+      --host=${SNAPSERVER_HOST:-halos.local}
+      --soundcard=${SNAPCLIENT_SOUNDCARD:-default}
+      --hostID=${SNAPCLIENT_NAME:-Saloon}

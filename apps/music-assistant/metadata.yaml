@@ -1,0 +1,51 @@
+name: Music Assistant
+app_id: music-assistant
+version: 2.5.0-1
+upstream_version: latest
+description: Music library manager and streaming hub
+long_description: |
+  Music Assistant is a free, open-source music library manager. It can stream
+  from Spotify (incl. acting as a Spotify Connect target), browse internet
+  radio via Radio Browser, index a local DRM-free music library, and route
+  audio to Snapcast for HDMI playback. Integrates natively with Home
+  Assistant.
+
+  Providers enabled in MA's settings after install:
+  - Spotify (Premium required)
+  - Spotify Connect (turn this player into a Connect target)
+  - Radio Browser (internet radio)
+  - Filesystem (offline local library, mounted at /library)
+  - Snapcast (uses MA's bundled Snapserver)
+homepage: https://www.music-assistant.io/
+maintainer: Stig Dreyer <stig@example.com>
+license: Apache-2.0
+tags:
+  - role::container-app
+  - field::boat
+  - category::media
+  - interface::web
+  - use::playing
+  - sound::player
+debian_section: sound
+architecture: all
+depends:
+  - docker.io (>= 20.10) | docker-ce (>= 20.10)
+web_ui:
+  enabled: true
+  path: /
+  port: 8095
+  protocol: http
+  visible: true
+routing:
+  # MA has minimal built-in auth; on-LAN access is the assumption. Keep auth
+  # passthrough for now; revisit forward_auth once MA's websocket behaviour
+  # behind Authelia has been verified.
+  auth:
+    mode: none
+layout:
+  priority: 70
+  width: 2
+  height: 2
+default_config:
+  # No user-facing config in v1 — providers (Spotify creds, library scan
+  # paths, Snapcast target) are configured inside MA's own UI after install.

@@ -1,0 +1,34 @@
+services:
+  music-assistant:
+    image: ghcr.io/music-assistant/server:latest
+    container_name: music-assistant
+    init: true
+    restart: unless-stopped
+    logging:
+      driver: journald
+      options:
+        tag: "{{.Name}}"
+    environment:
+      - LOG_LEVEL=info
+    volumes:
+      # MA state, providers config, cache
+      - ${CONTAINER_DATA_ROOT}/data:/data
+      # DRM-free local music; populate via rsync or by extending this mount
+      # to include a USB stick mountpoint under /media/<user>/<label>.
+      - ${CONTAINER_DATA_ROOT}/library:/library:ro
+    # MA's bundled Snapserver listens on these ports. They must be reachable
+    # on the LAN so Snapcast clients (incl. our snapclient app and any future
+    # zone clients) can connect. Web UI on :8095 is reached via Traefik
+    # through halos-proxy-network — no need to publish it here.
+    ports:
+      - "1704:1704"          # Snapserver stream port
+      - "1705:1705"          # Snapserver TCP control port
+      - "1780:1780"          # Snapserver HTTP / web client
+      - "4953-5153:4953-5153"  # Snapserver dynamic stream range
+    # halos-proxy-network is auto-injected by container-packaging-tools.
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8095"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 5
