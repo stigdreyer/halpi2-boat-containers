@@ -5,12 +5,13 @@ build/
 *.tar.gz
 *.tar.xz
 *.dsc
-debian/.debhelper/
-debian/files
-debian/*.substvars
-debian/*.debhelper.log
-debian/*-container/
-debian/boat-container-store/
+**/debian/.debhelper/
+**/debian/files
+**/debian/*.substvars
+**/debian/*.debhelper.log
+**/debian/*-container/
+**/debian/*-store/
+**/debian/debhelper-build-stamp
 
 .venv/
 __pycache__/
