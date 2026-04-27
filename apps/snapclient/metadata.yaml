@@ -25,6 +25,7 @@ depends:
 web_ui:
   enabled: false
 routing:
+  host_port: 1780
   auth:
     mode: none
 default_config:
