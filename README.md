@@ -27,14 +27,22 @@ halpi2-boat-containers/
 
 ## Building locally
 
-Requirements on the build host:
-
-- `dpkg-buildpackage`, `debhelper` (`sudo apt install dpkg-dev debhelper`)
-- `uv` (for `uvx`): https://docs.astral.sh/uv/
+Requires a Debian/Ubuntu host (or Docker on macOS):
 
 ```bash
+# On Debian/Ubuntu
+sudo apt install build-essential dpkg-dev debhelper lintian
+# Install uv: https://docs.astral.sh/uv/
 ./tools/build-all.sh
-ls build/*.deb
+```
+
+```bash
+# On macOS via Docker
+docker run --rm -v "$(pwd):/repo" -w /repo ubuntu:24.04 bash -c "
+  apt-get update -qq && apt-get install -y -qq build-essential devscripts dpkg-dev debhelper lintian curl ca-certificates &&
+  curl -LsSf https://astral.sh/uv/install.sh | sh &&
+  export PATH=\"\$HOME/.local/bin:\$PATH\" &&
+  ./tools/build-all.sh"
 ```
 
 Outputs (with default `--prefix boat`):
@@ -66,9 +74,6 @@ After install:
 3. **Local music library** — drop files into
    `/var/lib/container-apps/boat-music-assistant-container/library/` and trigger
    a Filesystem rescan in MA.
-
-See [the plan](https://github.com/USER/halpi2-boat-containers/blob/main/docs/plan.md)
-for the full architecture write-up.
 
 ## Releases
 
