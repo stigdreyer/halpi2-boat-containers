@@ -12,7 +12,6 @@ services:
       - TZ=${HA_TZ:-Europe/Oslo}
     volumes:
       - ${CONTAINER_DATA_ROOT}/config:/config
-      - /etc/localtime:/etc/localtime:ro
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:8123/manifest.json"]
       interval: 30s
