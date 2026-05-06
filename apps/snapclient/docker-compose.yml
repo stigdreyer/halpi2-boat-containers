@@ -3,7 +3,7 @@ services:
     # Build from the Dockerfile shipped in this package. After install, the
     # build context is /var/lib/container-apps/boat-snapclient-container/.
     build:
-      context: .
+      context: ./assets
       dockerfile: Dockerfile
     container_name: snapclient
     init: true
