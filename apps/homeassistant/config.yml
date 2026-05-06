@@ -9,4 +9,4 @@ groups:
         type: string
         default: Europe/Oslo
         required: true
-        description: Timezone for Home Assistant (e.g. Europe/Oslo, Atlantic/Canary)
+        description: "Timezone for Home Assistant (e.g. Europe/Oslo, Atlantic/Canary)"
