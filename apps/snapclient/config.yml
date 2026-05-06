@@ -8,9 +8,9 @@ groups:
       - id: SNAPSERVER_HOST
         label: Snapcast Server Host
         type: string
-        default: halos.local
+        default: "127.0.0.1"
         required: true
-        description: "Hostname or IP of the Snapcast server (defaults to the local HaLOS instance)"
+        description: "Hostname or IP of the Snapcast server. Use 127.0.0.1 when Music Assistant runs on the same device (snapclient uses host networking)."
 
       - id: SNAPCLIENT_SOUNDCARD
         label: Sound Card

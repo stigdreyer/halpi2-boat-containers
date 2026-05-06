@@ -1,3 +1,14 @@
+boat-container-store (0.2.0-1) stable; urgency=medium
+
+  * Fix snapclient default SNAPSERVER_HOST to 127.0.0.1 (host networking).
+  * Fix music-assistant routing port to 8095 (was incorrectly 1704).
+  * Fix homeassistant: set init: false to allow s6-overlay to run as PID 1.
+  * Fix homeassistant: remove /etc/localtime bind mount (breaks postinst).
+  * Fix snapclient: move Dockerfile into assets/ so it is included in package.
+  * Replace SVG icons with 256x256 PNG icons as required by packaging tools.
+
+ -- Stig Dreyer <stig.dreyer@busy-brain.de>  Wed, 07 May 2026 00:00:00 +0200
+
 boat-container-store (0.1.0-1) stable; urgency=medium
 
   * Initial release.

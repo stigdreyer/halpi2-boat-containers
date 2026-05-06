@@ -29,11 +29,11 @@ routing:
   auth:
     mode: none
 default_config:
-  # Hostname or IP of the Snapserver. `halos.local` resolves to the host
-  # itself when running on the HALPI2.
-  SNAPSERVER_HOST: halos.local
-  # ALSA device. `default` matches the active HDMI sink on a Pi CM5 with
-  # only HDMI wired. Run `aplay -L` on the host to confirm.
+  # 127.0.0.1 works because snapclient uses host networking and MA publishes
+  # port 1704 to the host. Override if Snapserver runs on a different device.
+  SNAPSERVER_HOST: "127.0.0.1"
+  # Run `aplay -L` on the host to list devices. On a HALPI2 with one active
+  # HDMI output use plughw:CARD=vc4hdmi0,DEV=0 or plughw:CARD=vc4hdmi1,DEV=0.
   SNAPCLIENT_SOUNDCARD: default
   # Logical room name shown in MA. Override per zone for multi-room.
   SNAPCLIENT_NAME: Saloon
