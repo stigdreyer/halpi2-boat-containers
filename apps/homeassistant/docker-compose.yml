@@ -2,7 +2,6 @@ services:
   homeassistant:
     image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
-    init: true
     restart: unless-stopped
     logging:
       driver: journald
