@@ -37,6 +37,7 @@ web_ui:
   protocol: http
   visible: true
 routing:
+  port: 8095
   # MA has minimal built-in auth; on-LAN access is the assumption. Keep auth
   # passthrough for now; revisit forward_auth once MA's websocket behaviour
   # behind Authelia has been verified.
