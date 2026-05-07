@@ -11,6 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Auto-bump Debian revisions
+        run: |
+          for app_dir in apps/*/; do
+            app=$(basename "$app_dir")
+            meta="${app_dir}metadata.yaml"
+            upstream=$(grep '^upstream_version:' "$meta" 2>/dev/null | awk '{print $2}')
+            if [ -z "$upstream" ]; then
+              upstream=$(grep '^version:' "$meta" | awk '{print $2}' | sed 's/-[0-9]*$//')
+            fi
+            rev=$(git rev-list HEAD -- "$app_dir" | wc -l | tr -d ' ')
+            sed -i "s/^version: .*/version: ${upstream}-${rev}/" "$meta"
+            echo "$app: ${upstream}-${rev}"
+          done
 
       - name: Install build dependencies
         run: |
@@ -44,6 +60,22 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Auto-bump Debian revisions
+        run: |
+          for app_dir in apps/*/; do
+            app=$(basename "$app_dir")
+            meta="${app_dir}metadata.yaml"
+            upstream=$(grep '^upstream_version:' "$meta" 2>/dev/null | awk '{print $2}')
+            if [ -z "$upstream" ]; then
+              upstream=$(grep '^version:' "$meta" | awk '{print $2}' | sed 's/-[0-9]*$//')
+            fi
+            rev=$(git rev-list HEAD -- "$app_dir" | wc -l | tr -d ' ')
+            sed -i "s/^version: .*/version: ${upstream}-${rev}/" "$meta"
+            echo "$app: ${upstream}-${rev}"
+          done
 
       - name: Install build dependencies
         run: |
