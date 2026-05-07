@@ -1,22 +1,22 @@
-Source: boat-container-store
+Source: ziganka-container-store
 Section: admin
 Priority: optional
 Maintainer: Stig Dreyer <stig.dreyer@busy-brain.de>
 Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.6.0
-Homepage: https://github.com/stigdreyer/halpi2-boat-containers
+Homepage: https://github.com/stigdreyer/Halpi2
 
-Package: boat-container-store
+Package: ziganka-container-store
 Architecture: all
 Tag: role::container-store
-Description: Boat container application store for Cockpit Container Apps
- This package provides the store definition and branding for the Boat
+Description: Ziganka container application store for Cockpit Container Apps
+ This package provides the store definition and branding for the Ziganka
  container application store, designed to work with cockpit-container-apps
- on a HALPI2 running HaLOS.
+ on a HALPI2 running HaLOS aboard the sailing vessel Ziganka.
  .
  When installed alongside cockpit-container-apps, it enables a curated view
- of boat-specific applications: Home Assistant for automation, Music
- Assistant for streaming and local-library playback, and a Snapcast client
- for HDMI audio output.
+ of vessel-specific applications: Home Assistant for automation, Music
+ Assistant for streaming and local-library playback, a Snapcast client for
+ HDMI audio output, and Mayara for marine radar display.
  .
- The store filters packages with the `field::boat` debtag.
+ The store filters packages with the `field::ziganka` debtag.

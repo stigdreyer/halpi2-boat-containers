@@ -1,29 +1,57 @@
-# halpi2-boat-containers
+# Ziganka
 
-Personal HaLOS container store + app definitions for a HALPI2-based boat
-computer. Provides Home Assistant, Music Assistant (with Spotify, Spotify
-Connect, internet radio, and a local-library provider), and a Snapcast client
-that plays audio out the host's HDMI.
+Custom HaLOS container store and app definitions for the sailing vessel
+**Ziganka**, running on a HALPI2 boat computer.
 
-This repo is structured to mirror
-[halos-org/halos-marine-containers](https://github.com/halos-org/halos-marine-containers)
-so the same `container-packaging-tools` pipeline produces installable `.deb`
-files.
+Apps included:
+- **Home Assistant** — automation hub for lights, instruments, and media control
+- **Music Assistant** — streaming (Spotify, internet radio) and local library,
+  with Snapcast for multi-room audio
+- **Snapcast Client** — Snapcast client playing audio out the HDMI port
+- **Mayara** — marine radar display with ARPA tracking and AIS overlay
 
-## What's in here
+Built with the
+[container-packaging-tools](https://github.com/halos-org/container-packaging-tools)
+pipeline, producing `.deb` packages installable via APT on HaLOS.
+
+## Repository layout
 
 ```
-halpi2-boat-containers/
-├── store/                     # "boat" store definition (.deb that registers
-│                              #   the store in Cockpit Container Apps)
+Halpi2/
+├── store/                     # "ziganka" store definition
 ├── apps/
 │   ├── homeassistant/         # Home Assistant Core
-│   ├── music-assistant/       # Music Assistant Server (incl. bundled Snapserver)
-│   └── snapclient/            # Snapcast client; owns /dev/snd → HDMI
+│   ├── music-assistant/       # Music Assistant (incl. bundled Snapserver)
+│   ├── snapclient/            # Snapcast client → HDMI audio
+│   └── mayara/                # Mayara radar server
 ├── tools/
-│   └── build-all.sh           # Build all .deb packages
-└── .github/workflows/         # Build on push, release on tag
+│   └── build-all.sh           # Build all .deb packages locally
+└── .github/workflows/
+    ├── build.yml              # Build check on every push
+    └── release.yml            # Build + publish APT repo on version tag
 ```
+
+## APT repository
+
+Add the Ziganka APT repo to your HALPI2 once:
+
+```bash
+curl -fsSL https://stigdreyer.github.io/Halpi2/ziganka.gpg \
+  | sudo tee /etc/apt/keyrings/ziganka.gpg > /dev/null
+echo "deb [signed-by=/etc/apt/keyrings/ziganka.gpg] https://stigdreyer.github.io/Halpi2 stable main" \
+  | sudo tee /etc/apt/sources.list.d/ziganka.list
+sudo apt update
+```
+
+Then install or upgrade apps with standard apt:
+
+```bash
+sudo apt install ziganka-container-store ziganka-homeassistant-container \
+  ziganka-music-assistant-container ziganka-snapclient-container \
+  ziganka-mayara-container
+```
+
+Future updates: `sudo apt update && sudo apt upgrade`
 
 ## Building locally
 
@@ -38,48 +66,24 @@ sudo apt install build-essential dpkg-dev debhelper lintian
 
 ```bash
 # On macOS via Docker
-docker run --rm -v "$(pwd):/repo" -w /repo ubuntu:24.04 bash -c "
-  apt-get update -qq && apt-get install -y -qq build-essential devscripts dpkg-dev debhelper lintian curl ca-certificates &&
+docker run --rm -v "$(pwd):/repo" -w /repo debian:bookworm-slim bash -c "
+  apt-get update -qq && apt-get install -y -qq \
+    build-essential devscripts dpkg-dev debhelper lintian curl ca-certificates git &&
   curl -LsSf https://astral.sh/uv/install.sh | sh &&
   export PATH=\"\$HOME/.local/bin:\$PATH\" &&
   ./tools/build-all.sh"
 ```
 
-Outputs (with default `--prefix boat`):
+## Releasing
 
-- `boat-container-store_<version>_all.deb`
-- `boat-homeassistant-container_<version>_all.deb`
-- `boat-music-assistant-container_<version>_all.deb`
-- `boat-snapclient-container_<version>_all.deb`
-
-## Installing on a HALPI2
+Tag a version to trigger the release workflow:
 
 ```bash
-# Copy or wget the .deb files to the HALPI2, then:
-sudo apt install \
-  ./boat-container-store_*.deb \
-  ./boat-homeassistant-container_*.deb \
-  ./boat-music-assistant-container_*.deb \
-  ./boat-snapclient-container_*.deb
+git tag v0.3.0 && git push origin v0.3.0
 ```
 
-After install:
-
-1. **Music Assistant** — open `https://halos.local/music-assistant/`. Enable the
-   Spotify, Spotify Connect, Radio Browser, Filesystem, and Snapcast providers
-   in MA's settings. Spotify Premium is required for the Spotify providers.
-2. **Home Assistant** — open `https://halos.local/homeassistant/`. Complete
-   onboarding, install the Music Assistant integration, and build a Lovelace
-   view containing the MA media-player card.
-3. **Local music library** — drop files into
-   `/var/lib/container-apps/boat-music-assistant-container/library/` and trigger
-   a Filesystem rescan in MA.
-
-## Releases
-
-Tag a version (`v0.1.0`, etc.) and the `release.yml` workflow attaches the
-built `.deb` files to the GitHub Release. There is no APT repository for this
-project; install via direct `.deb` download.
+GitHub Actions will build the packages, publish them to the APT repository
+on GitHub Pages, and attach the `.deb` files to a GitHub Release.
 
 ## License
 

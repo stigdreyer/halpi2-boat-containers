@@ -1,0 +1,24 @@
+services:
+  mayara:
+    image: ghcr.io/marineyachtradar/mayara-server:latest
+    container_name: mayara
+    init: false
+    network_mode: host
+    restart: unless-stopped
+    logging:
+      driver: journald
+      options:
+        tag: "{{.Name}}"
+    environment:
+      - MAYARA_ARGS=${MAYARA_ARGS:-}
+    # $$MAYARA_ARGS: $$ is docker-compose escaping — the container shell sees
+    # $MAYARA_ARGS and expands it from the environment set above.
+    command: sh -c "exec mayara-server $$MAYARA_ARGS"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:6502/signalk/v2/api/vessels/self/radars"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 5
+    # Host networking is required for multicast-based radar hardware discovery.
+    # The web UI is accessible directly at http://halpi.local:6502.

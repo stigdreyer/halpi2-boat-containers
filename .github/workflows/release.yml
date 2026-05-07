@@ -6,6 +6,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   release:
@@ -17,7 +19,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            build-essential devscripts dpkg-dev debhelper lintian
+            build-essential devscripts dpkg-dev debhelper lintian apt-utils
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
@@ -32,3 +34,47 @@ jobs:
           generate_release_notes: true
           draft: false
           prerelease: false
+
+      - name: Import GPG signing key
+        run: echo "${{ secrets.APT_SIGNING_KEY }}" | gpg --batch --import
+
+      - name: Build APT repository
+        run: |
+          set -e
+          REPO="apt-repo"
+          mkdir -p "$REPO/pool/main" "$REPO/dists/stable/main/binary-all"
+          cp build/*.deb "$REPO/pool/main/"
+
+          # Generate Packages index (paths relative to repo root)
+          cd "$REPO"
+          dpkg-scanpackages --arch all pool/main > dists/stable/main/binary-all/Packages
+          gzip -k dists/stable/main/binary-all/Packages
+          cd ..
+
+          # Generate Release file with checksums
+          apt-ftparchive \
+            -o APT::FTPArchive::Release::Origin="Ziganka" \
+            -o APT::FTPArchive::Release::Label="Ziganka" \
+            -o APT::FTPArchive::Release::Suite="stable" \
+            -o APT::FTPArchive::Release::Codename="stable" \
+            -o APT::FTPArchive::Release::Components="main" \
+            -o APT::FTPArchive::Release::Architectures="all" \
+            release "$REPO/dists/stable" > "$REPO/dists/stable/Release"
+
+          # Sign the Release file
+          gpg --batch --yes --armor --detach-sign \
+            --output "$REPO/dists/stable/Release.gpg" \
+            "$REPO/dists/stable/Release"
+          gpg --batch --yes --clearsign \
+            --output "$REPO/dists/stable/InRelease" \
+            "$REPO/dists/stable/Release"
+
+          # Publish public key so the HALPI2 can fetch it in one command
+          gpg --armor --export > "$REPO/ziganka.gpg"
+
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./apt-repo
+          keep_files: false

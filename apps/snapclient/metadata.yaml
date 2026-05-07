@@ -14,14 +14,14 @@ maintainer: Stig Dreyer <stig.dreyer@busy-brain.de>
 license: GPL-3.0
 tags:
   - role::container-app
-  - field::boat
+  - field::ziganka
   - category::audio
   - sound::player
 debian_section: sound
 architecture: all
 depends:
   - docker.io (>= 20.10) | docker-ce (>= 20.10)
-  - boat-music-assistant-container
+  - ziganka-music-assistant-container
 web_ui:
   enabled: false
 routing:

@@ -1,0 +1,15 @@
+version: "1.0"
+groups:
+  - id: general
+    label: General Settings
+    fields:
+      - id: MAYARA_ARGS
+        label: Extra Command Arguments
+        type: string
+        default: ""
+        required: false
+        description: >
+          Additional command-line flags passed to mayara-server.
+          Use "--emulator" to run without physical radar hardware.
+          Use "--navico", "--raymarine", "--furuno", "--garmin", or "--koden"
+          to restrict discovery to a specific radar brand.

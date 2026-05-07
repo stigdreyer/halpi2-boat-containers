@@ -5,10 +5,10 @@
 
 override_dh_auto_install:
 	# Install store configuration
-	install -D -m 644 boat.yaml debian/boat-container-store/etc/container-apps/stores/boat.yaml
+	install -D -m 644 ziganka.yaml debian/ziganka-container-store/etc/container-apps/stores/ziganka.yaml
 
 	# Install branding assets
-	install -D -m 644 icon.svg debian/boat-container-store/usr/share/container-stores/boat/icon.svg
+	install -D -m 644 icon.svg debian/ziganka-container-store/usr/share/container-stores/ziganka/icon.svg
 
 	# Install banner if it exists
-	[ -f banner.png ] && install -D -m 644 banner.png debian/boat-container-store/usr/share/container-stores/boat/banner.png || true
+	[ -f banner.png ] && install -D -m 644 banner.png debian/ziganka-container-store/usr/share/container-stores/ziganka/banner.png || true

@@ -21,7 +21,7 @@ maintainer: Stig Dreyer <stig.dreyer@busy-brain.de>
 license: Apache-2.0
 tags:
   - role::container-app
-  - field::boat
+  - field::ziganka
   - category::media
   - interface::web
   - use::playing

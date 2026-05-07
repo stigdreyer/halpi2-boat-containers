@@ -1,4 +1,12 @@
-boat-container-store (0.2.0-1) stable; urgency=medium
+ziganka-container-store (0.3.0-1) stable; urgency=medium
+
+  * Rename store and all packages from "boat" to "ziganka".
+  * Add Mayara radar server app (category::navigation).
+  * Add APT repository published via GitHub Pages.
+
+ -- Stig Dreyer <stig.dreyer@busy-brain.de>  Wed, 07 May 2026 12:00:00 +0200
+
+ziganka-container-store (0.2.0-1) stable; urgency=medium
 
   * Fix snapclient default SNAPSERVER_HOST to 127.0.0.1 (host networking).
   * Fix music-assistant routing port to 8095 (was incorrectly 1704).
@@ -9,7 +17,7 @@ boat-container-store (0.2.0-1) stable; urgency=medium
 
  -- Stig Dreyer <stig.dreyer@busy-brain.de>  Wed, 07 May 2026 00:00:00 +0200
 
-boat-container-store (0.1.0-1) stable; urgency=medium
+ziganka-container-store (0.1.0-1) stable; urgency=medium
 
   * Initial release.
   * Defines the "boat" container app store for Cockpit Container Apps.

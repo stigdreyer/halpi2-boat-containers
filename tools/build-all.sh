@@ -1,12 +1,12 @@
 #!/bin/bash
-# Build all packages: boat-container-store + container apps under apps/.
+# Build all packages: ziganka-container-store + container apps under apps/.
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="${REPO_ROOT}/build"
-PREFIX="${PACKAGE_PREFIX:-boat}"
+PREFIX="${PACKAGE_PREFIX:-ziganka}"
 
 echo "Building all boat packages..."
 echo "Repository root: $REPO_ROOT"
@@ -16,17 +16,17 @@ echo "Package prefix:  $PREFIX"
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
-# Build boat-container-store package
+# Build ziganka-container-store package
 echo ""
-echo "=== Building boat-container-store package ==="
+echo "=== Building ziganka-container-store package ==="
 cd "${REPO_ROOT}/store"
 dpkg-buildpackage -us -uc -b
-mv ../boat-container-store_*.deb "$BUILD_DIR/"
-mv ../boat-container-store_*.buildinfo "$BUILD_DIR/" 2>/dev/null || true
-mv ../boat-container-store_*.changes "$BUILD_DIR/" 2>/dev/null || true
+mv ../ziganka-container-store_*.deb "$BUILD_DIR/"
+mv ../ziganka-container-store_*.buildinfo "$BUILD_DIR/" 2>/dev/null || true
+mv ../ziganka-container-store_*.changes "$BUILD_DIR/" 2>/dev/null || true
 
 cd "$REPO_ROOT"
-rm -f boat-container-store_*.deb boat-container-store_*.buildinfo boat-container-store_*.changes
+rm -f ziganka-container-store_*.deb ziganka-container-store_*.buildinfo ziganka-container-store_*.changes
 
 # Build container app packages using container-packaging-tools.
 if command -v uvx >/dev/null 2>&1; then
