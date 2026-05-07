@@ -1,7 +1,7 @@
 name: Mayara Radar Server
 app_id: mayara
-version: 1.0.0-1
-upstream_version: latest
+version: 3.4.2-1
+upstream_version: 3.4.2
 description: Marine radar display and ARPA tracking server
 long_description: |
   Mayara is a radar middleware server that translates proprietary radar

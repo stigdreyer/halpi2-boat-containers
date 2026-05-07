@@ -1,6 +1,6 @@
 services:
   mayara:
-    image: ghcr.io/marineyachtradar/mayara-server:latest
+    image: ghcr.io/marineyachtradar/mayara-server:v3.4.2
     container_name: mayara
     init: false
     network_mode: host

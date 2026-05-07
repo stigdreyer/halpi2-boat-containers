@@ -1,6 +1,6 @@
 services:
   music-assistant:
-    image: ghcr.io/music-assistant/server:latest
+    image: ghcr.io/music-assistant/server:2.8.6
     container_name: music-assistant
     init: true
     restart: unless-stopped
