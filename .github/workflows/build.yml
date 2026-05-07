@@ -64,12 +64,15 @@ jobs:
         run: |
           set -e
           REPO="apt-repo"
-          mkdir -p "$REPO/pool/main" "$REPO/dists/stable/main/binary-all"
+          mkdir -p "$REPO/pool/main"
           cp build/*.deb "$REPO/pool/main/"
 
           cd "$REPO"
-          dpkg-scanpackages --arch all pool/main > dists/stable/main/binary-all/Packages
-          gzip -k dists/stable/main/binary-all/Packages
+          for arch in all amd64 arm64 armhf; do
+            mkdir -p "dists/stable/main/binary-$arch"
+            dpkg-scanpackages --arch "$arch" pool/main > "dists/stable/main/binary-$arch/Packages"
+            gzip -k "dists/stable/main/binary-$arch/Packages"
+          done
           cd ..
 
           apt-ftparchive \
@@ -78,7 +81,7 @@ jobs:
             -o APT::FTPArchive::Release::Suite="stable" \
             -o APT::FTPArchive::Release::Codename="stable" \
             -o APT::FTPArchive::Release::Components="main" \
-            -o APT::FTPArchive::Release::Architectures="all" \
+            -o APT::FTPArchive::Release::Architectures="all amd64 arm64 armhf" \
             release "$REPO/dists/stable" > "$REPO/dists/stable/Release"
 
           gpg --batch --yes --armor --detach-sign \
