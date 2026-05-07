@@ -5,6 +5,8 @@ services:
     build:
       context: ./assets
       dockerfile: Dockerfile
+      args:
+        SNAPCLIENT_VERSION: "0.31.0"
     container_name: snapclient
     init: true
     restart: unless-stopped

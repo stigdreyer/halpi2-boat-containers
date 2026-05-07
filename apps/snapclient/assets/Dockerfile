@@ -1,13 +1,13 @@
-# Tiny snapclient image built on Debian Trixie.
-# We build locally (rather than pulling a community image) so the version of
-# snapclient is pinned to whatever Trixie ships and matches the system's ALSA
-# stack exactly.
 FROM debian:trixie-slim
 
+ARG SNAPCLIENT_VERSION=0.31.0
+
 RUN apt-get update \
- && apt-get install -y --no-install-recommends snapclient ca-certificates \
+ && apt-get install -y --no-install-recommends ca-certificates wget \
+ && ARCH=$(dpkg --print-architecture) \
+ && wget -q "https://github.com/badaix/snapcast/releases/download/v${SNAPCLIENT_VERSION}/snapclient_${SNAPCLIENT_VERSION}-1_${ARCH}.deb" \
+ && apt-get install -y --no-install-recommends ./snapclient_${SNAPCLIENT_VERSION}-1_${ARCH}.deb \
+ && rm -f ./snapclient_*.deb \
  && rm -rf /var/lib/apt/lists/*
 
-# `audio` group exists in the base image; member of the `audio` GID can open
-# /dev/snd nodes when they're bind-mounted from the host.
 ENTRYPOINT ["/usr/bin/snapclient"]

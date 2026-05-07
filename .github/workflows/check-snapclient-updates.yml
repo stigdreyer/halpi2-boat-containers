@@ -1,0 +1,64 @@
+name: Check for Snapclient updates
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.repository }}-check-snapclient-updates
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check-snapclient:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Check for new Snapclient release
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          LATEST=$(gh api repos/badaix/snapcast/releases/latest --jq '.tag_name' | sed 's/^v//')
+          CURRENT=$(grep '^upstream_version:' apps/snapclient/metadata.yaml | awk '{print $2}')
+          echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
+          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
+          if [ "$LATEST" != "$CURRENT" ]; then
+            echo "has_update=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_update=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update version files
+        if: steps.check.outputs.has_update == 'true'
+        run: |
+          LATEST="${{ steps.check.outputs.latest }}"
+          CURRENT="${{ steps.check.outputs.current }}"
+          sed -i "s/^version: ${CURRENT}-1/version: ${LATEST}-1/" apps/snapclient/metadata.yaml
+          sed -i "s/^upstream_version: ${CURRENT}/upstream_version: ${LATEST}/" apps/snapclient/metadata.yaml
+          sed -i "s/SNAPCLIENT_VERSION: \"${CURRENT}\"/SNAPCLIENT_VERSION: \"${LATEST}\"/" apps/snapclient/docker-compose.yml
+
+      - name: Open pull request
+        if: steps.check.outputs.has_update == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          LATEST="${{ steps.check.outputs.latest }}"
+          CURRENT="${{ steps.check.outputs.current }}"
+          BRANCH="chore/update-snapclient-${LATEST}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add apps/snapclient/metadata.yaml apps/snapclient/docker-compose.yml
+          git commit -m "chore: update snapclient ${CURRENT} → ${LATEST}"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "chore: update snapclient ${CURRENT} → ${LATEST}" \
+            --body "Automated update of Snapclient from \`${CURRENT}\` to \`${LATEST}\`." \
+            --base main \
+            --head "$BRANCH"
