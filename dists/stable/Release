@@ -1,23 +1,23 @@
 Architectures: all
 Codename: stable
 Components: main
-Date: Thu, 07 May 2026 07:03:56 +0000
+Date: Thu, 07 May 2026 07:32:22 +0000
 Label: Ziganka
 Origin: Ziganka
 Suite: stable
 MD5Sum:
- affe88ad2239f025775e5cbb7a7e3351              136 Release
- 6c0b611170e69cbdea9d45f1c982b017             6127 main/binary-all/Packages
- 4fd5164b90a377e3b50d451a40cf1099             2427 main/binary-all/Packages.gz
+ c9d3fa5ab31932dedbae1b2007bcf3db              136 Release
+ e621a99d899058c47a81b7e6ac1ed925             6127 main/binary-all/Packages
+ 1c06d488aedc61aef648325191f5aec3             2426 main/binary-all/Packages.gz
 SHA1:
- b7dfe38bcbce7ec0f32f0d47910756a037ce1dcd              136 Release
- d3c99315556076977884584bf64763a212c7564d             6127 main/binary-all/Packages
- e2e5bd8c1e9be8c431192784ff44bb15d763e1c3             2427 main/binary-all/Packages.gz
+ 74724deb2c31aada7791f5ea22be5a73b65f4271              136 Release
+ cc92640b44728d55024c1a90078c5d0ff5e1d153             6127 main/binary-all/Packages
+ 47d23bce561d89ee85083c10513762ca120592b3             2426 main/binary-all/Packages.gz
 SHA256:
- dfb322d87515d875d51f388d63b3ee6fe16e05fb24c9eb553a3c722d2d5697d3              136 Release
- 6d786ac77bbcf602875fc3692f476a5842cc2e84faae24e0a796a9c68dd4e53d             6127 main/binary-all/Packages
- 8d14e2dd362d887bf0311c1ee7b43d2a0c8331711edd59254e01e76898c1ed29             2427 main/binary-all/Packages.gz
+ 98d8017aa080081f43fb129eaba94483a568c6c7c73ef9726e453fffb49dc9b9              136 Release
+ 820f71109a2138865ea7b7fc8faab42e02f91f113b4bf8130f47614f0f91c7d2             6127 main/binary-all/Packages
+ 9e9277e819cefeb386fa70b7319830cd83506ebb62824b522c18cfc532fbb18e             2426 main/binary-all/Packages.gz
 SHA512:
- e2497ec63ce73956be05b15cbd2fb52e38df6fd17901da19e3f9eb230da4b7c4451cf909431d895f38bc0ac79cbc8001f01f205ac31dad91700af47a1fbe6b99              136 Release
- 699d1a5aa9ecf326352073ba29c5538a125986d61399e17c9ab84655b871528ac2162bf40336721fddd65cd53a11c5bcd7a5285dd0ef00147ae4afeda3e814b6             6127 main/binary-all/Packages
- f4540e7910d3f3b2aae6985346218c7c6595e5f4e2a9b2123d8e8d703fe83f9d64f7ff5b5967df89c5efb9c87c7a598e970316d97f1e68d87bf8d23073795652             2427 main/binary-all/Packages.gz
+ bdd0cf9e70feab2d47a7ad818f62384e72061a8bbfadb1472ec1e2c48d96954c7429cc914fbb02de0fe8dae5b76528442bcd4ba2febc5a32d146c3529a238c11              136 Release
+ ec6ded97dbdd4a09ffc665132b7eb2c1bff3370e6e4769faf2e5b37e9cff3a56c4eb18a18f3baee39d2774c14283c40bc87c65d10724c806c1c8f07d6be999c8             6127 main/binary-all/Packages
+ a89ea5b7a29327fd22797a1b3f8efdc8e49e53c1d28a39da67c1e4e2cab8e4ef8ccc014e90673a1b1022358c6508c21f536aa22ba5589af82c16d07ae44665ac             2426 main/binary-all/Packages.gz
