@@ -36,9 +36,9 @@ Halpi2/
 Add the Ziganka APT repo to your HALPI2 once:
 
 ```bash
-curl -fsSL https://stigdreyer.github.io/Halpi2/ziganka.gpg \
+curl -fsSL https://stigdreyer.github.io/ziganka-containers/ziganka.gpg \
   | sudo tee /etc/apt/keyrings/ziganka.gpg > /dev/null
-echo "deb [signed-by=/etc/apt/keyrings/ziganka.gpg] https://stigdreyer.github.io/Halpi2 stable main" \
+echo "deb [signed-by=/etc/apt/keyrings/ziganka.gpg] https://stigdreyer.github.io/ziganka-containers stable main" \
   | sudo tee /etc/apt/sources.list.d/ziganka.list
 sudo apt update
 ```
