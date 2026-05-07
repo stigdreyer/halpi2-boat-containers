@@ -30,8 +30,6 @@ debian_section: sound
 architecture: all
 depends:
   - docker.io (>= 20.10) | docker-ce (>= 20.10)
-replaces:
-  - boat-music-assistant-container
 conflicts:
   - boat-music-assistant-container
 web_ui:

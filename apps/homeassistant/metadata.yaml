@@ -27,8 +27,6 @@ debian_section: web
 architecture: all
 depends:
   - docker.io (>= 20.10) | docker-ce (>= 20.10)
-replaces:
-  - boat-homeassistant-container
 conflicts:
   - boat-homeassistant-container
 web_ui:

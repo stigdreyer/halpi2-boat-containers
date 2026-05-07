@@ -22,8 +22,6 @@ architecture: all
 depends:
   - docker.io (>= 20.10) | docker-ce (>= 20.10)
   - ziganka-music-assistant-container
-replaces:
-  - boat-snapclient-container
 conflicts:
   - boat-snapclient-container
 web_ui:

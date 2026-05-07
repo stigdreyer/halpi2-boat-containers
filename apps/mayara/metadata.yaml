@@ -29,8 +29,6 @@ debian_section: web
 architecture: all
 depends:
   - docker.io (>= 20.10) | docker-ce (>= 20.10)
-replaces:
-  - boat-mayara-container
 conflicts:
   - boat-mayara-container
 web_ui:
