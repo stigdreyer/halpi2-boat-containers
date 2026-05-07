@@ -1,0 +1,23 @@
+Architectures: all
+Codename: stable
+Components: main
+Date: Thu, 07 May 2026 00:14:44 +0000
+Label: Ziganka
+Origin: Ziganka
+Suite: stable
+MD5Sum:
+ 31d88184aeaf2cef1988cf5047479a9a              136 Release
+ 49179f02a1ba577c38f0c94474d335c2             5975 main/binary-all/Packages
+ f0df89e0989560dfe32dfec2047a8acb             2396 main/binary-all/Packages.gz
+SHA1:
+ 6065e10316b0585bd80232d8007be37c0b3624af              136 Release
+ dc7ed97695cc4a7e7718087684f90560dbb915a2             5975 main/binary-all/Packages
+ a0985a5a8fb728d1486a1c410b8385bcf7ba11c5             2396 main/binary-all/Packages.gz
+SHA256:
+ d847f15fec95d36abb4c586e1eb422420514618dc84d28356e5775af58cacee0              136 Release
+ 1d974c2397cdc865a1f1077db638f6f4cfe4b72dce273754660b6a8188c372f0             5975 main/binary-all/Packages
+ eeadf7770d90d45687a40ff57d23cadefdf12b580308dc39e42a8f3d7f7dd404             2396 main/binary-all/Packages.gz
+SHA512:
+ 978d52aaa1fd7dc65be145efe3de222ca3eb22b437a837ef217c28d916567ee42cdb4383ea3bd81fe22ecbb7704f9c0ced6686362234a1a1d78bff3cf1a8a7e8              136 Release
+ 0701d8f09f55ccac17170b095dec96cda65fb86987b5e32f0fafe5c985259c48bd7115fb59a4bb96ff4eb4b7ecf84b04ea8b08fa6425d2bc52292b4d341deb27             5975 main/binary-all/Packages
+ 3a0ec5e94d01f94cf65bb5810cda78006f3e9e5809e6d65572bde0a62e35b51fbe2aad419108b99be4885b7bf256366464e11ae621efd42b91290e2d3dd8322f             2396 main/binary-all/Packages.gz

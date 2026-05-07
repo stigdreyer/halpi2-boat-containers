@@ -1,0 +1,132 @@
+Package: ziganka-container-store
+Version: 0.3.0-1
+Architecture: all
+Maintainer: Stig Dreyer <stig.dreyer@busy-brain.de>
+Installed-Size: 17
+Filename: pool/main/ziganka-container-store_0.3.0-1_all.deb
+Size: 3516
+MD5sum: 0d7b57be8c9789ef93f149c2d9c00284
+SHA1: 6f1ea189da9d874f880f5a4fb832ef65f145c74f
+SHA256: 17016a7ea23f94f1e61f8716d866e0de439295726fb53013fd7ebd95d9ca3992
+Section: admin
+Priority: optional
+Homepage: https://github.com/stigdreyer/ziganka-containers
+Description: Ziganka container application store for Cockpit Container Apps
+ This package provides the store definition and branding for the Ziganka
+ container application store, designed to work with cockpit-container-apps
+ on a HALPI2 running HaLOS aboard the sailing vessel Ziganka.
+ .
+ When installed alongside cockpit-container-apps, it enables a curated view
+ of vessel-specific applications: Home Assistant for automation, Music
+ Assistant for streaming and local-library playback, a Snapcast client for
+ HDMI audio output, and Mayara for marine radar display.
+ .
+ The store filters packages with the `field::ziganka` debtag.
+Tag: role::container-store
+
+Package: ziganka-homeassistant-container
+Version: 2026.4.0-1
+Architecture: all
+Maintainer: Stig Dreyer <stig.dreyer@busy-brain.de>
+Installed-Size: 51
+Depends: docker-compose | docker-compose-plugin, docker.io (>= 20.10) | docker-ce (>= 20.10)
+Filename: pool/main/ziganka-homeassistant-container_2026.4.0-1_all.deb
+Size: 10688
+MD5sum: 5c8ef4fb4f601ce8b5559d271000e277
+SHA1: 32a2ffb0286203666fb29e83993c6b6dfe089c8c
+SHA256: df6445c6f85ad2ce0e093cecd01da67f913a7f7cf981b4e4658065a6c19706f2
+Section: web
+Priority: optional
+Homepage: https://www.home-assistant.io/
+Description: Open-source home automation platform
+ Home Assistant is the central automation hub for the boat. It controls
+ lights, monitors instrumentation, and surfaces media controls for Music
+ Assistant via the official Music Assistant integration.
+ .
+ Features:
+ - Web UI / Lovelace dashboards
+ - Thousands of integrations
+ - Powerful automation engine
+ - First-class Music Assistant integration (media_player entities,
+ services, automations)
+Tag: role::container-app, field::ziganka, category::automation, interface::web, use::organizing, x-display-name::Home Assistant
+
+Package: ziganka-mayara-container
+Version: 1.0.0-1
+Architecture: all
+Maintainer: Stig Dreyer <stigdreyer@nxtmilestone.com>
+Installed-Size: 54
+Depends: docker-compose | docker-compose-plugin, docker.io (>= 20.10) | docker-ce (>= 20.10)
+Filename: pool/main/ziganka-mayara-container_1.0.0-1_all.deb
+Size: 15998
+MD5sum: d8fa3d3562832d84c9a70b3f849a8bf4
+SHA1: 319f0b49d92c8a139c87c0637496e96887b2164a
+SHA256: e95f75dfdd8754b2eec8756755feb5ce1c095eaa3d6266e427e6a7134c65ec17
+Section: web
+Priority: optional
+Homepage: https://github.com/MarineYachtRadar/mayara-server
+Description: Marine radar display and ARPA tracking server
+ Mayara is a radar middleware server that translates proprietary radar
+ protocols from Navico, Raymarine, Furuno, Garmin, and Koden into an
+ open Signal K-compatible API. It serves a real-time PPI radar display
+ in the browser with ARPA target tracking and AIS integration.
+ .
+ Features:
+ - Real-time PPI radar display via web browser
+ - ARPA target tracking with CPA/TCPA collision prediction
+ - AIS vessel overlay
+ - Radar controls (power, range, gain, clutter)
+ - Built-in emulator for testing without hardware
+Tag: role::container-app, field::ziganka, category::navigation, interface::web, use::monitoring, x-display-name::Mayara Radar Server
+
+Package: ziganka-music-assistant-container
+Version: 2.5.0-1
+Architecture: all
+Maintainer: Stig Dreyer <stig.dreyer@busy-brain.de>
+Installed-Size: 57
+Depends: docker-compose | docker-compose-plugin, docker.io (>= 20.10) | docker-ce (>= 20.10)
+Filename: pool/main/ziganka-music-assistant-container_2.5.0-1_all.deb
+Size: 16810
+MD5sum: ff065d91a79187d8683be2f30433ca78
+SHA1: 7d447f89a1ceb50e2b0e46657d7a6fb82ffe01da
+SHA256: bf5c07230fc2c087d4dbec1c55869d2884e046fde2bc63b60eb8a7a3e7ee2c8a
+Section: sound
+Priority: optional
+Homepage: https://www.music-assistant.io/
+Description: Music library manager and streaming hub
+ Music Assistant is a free, open-source music library manager. It can stream
+ from Spotify (incl. acting as a Spotify Connect target), browse internet
+ radio via Radio Browser, index a local DRM-free music library, and route
+ audio to Snapcast for HDMI playback. Integrates natively with Home
+ Assistant.
+ .
+ Providers enabled in MA's settings after install:
+ - Spotify (Premium required)
+ - Spotify Connect (turn this player into a Connect target)
+ - Radio Browser (internet radio)
+ - Filesystem (offline local library, mounted at /library)
+ - Snapcast (uses MA's bundled Snapserver)
+Tag: role::container-app, field::ziganka, category::media, interface::web, use::playing, sound::player, x-display-name::Music Assistant
+
+Package: ziganka-snapclient-container
+Version: 0.31.0-1
+Architecture: all
+Maintainer: Stig Dreyer <stig.dreyer@busy-brain.de>
+Installed-Size: 51
+Depends: docker-compose | docker-compose-plugin, docker.io (>= 20.10) | docker-ce (>= 20.10), ziganka-music-assistant-container
+Filename: pool/main/ziganka-snapclient-container_0.31.0-1_all.deb
+Size: 12254
+MD5sum: 5b21c481d465dbc227deeb590c2c2a16
+SHA1: 4919323bee5000b129a02f074df72cdd2005fe92
+SHA256: a43f17264c837b37a5bb8762850d87421fb0d3cd2593cbd3849812db26cd7a37
+Section: sound
+Priority: optional
+Homepage: https://github.com/badaix/snapcast
+Description: Snapcast client for HDMI audio playback
+ Snapcast client that connects to the Snapserver bundled with Music
+ Assistant and plays audio out the host's ALSA device — i.e. the HDMI port
+ of the HALPI2. This is the only container in the boat stack that holds
+ /dev/snd. Multi-room audio is a future iteration: deploy more snapclient
+ instances per zone and they all sync against the same Snapserver.
+Tag: role::container-app, field::ziganka, category::audio, sound::player, x-display-name::Snapcast Client
+
