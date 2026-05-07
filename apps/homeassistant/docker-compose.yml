@@ -4,6 +4,9 @@ services:
     container_name: homeassistant
     init: false
     network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
     restart: unless-stopped
     logging:
       driver: journald
