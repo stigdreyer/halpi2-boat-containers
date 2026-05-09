@@ -1,6 +1,6 @@
 FROM debian:trixie-slim
 
-ARG SNAPCLIENT_VERSION=0.34.0
+ARG SNAPCLIENT_VERSION=0.35.0
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates wget \
