@@ -10,4 +10,7 @@ RUN apt-get update \
  && rm -f ./snapclient_*.deb \
  && rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT ["/usr/bin/snapclient"]
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

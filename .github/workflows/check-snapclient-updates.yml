@@ -39,7 +39,7 @@ jobs:
         run: |
           LATEST="${{ steps.check.outputs.latest }}"
           CURRENT="${{ steps.check.outputs.current }}"
-          sed -i "s/^version: ${CURRENT}-1/version: ${LATEST}-1/" apps/snapclient/metadata.yaml
+          sed -i -E "s/^version: ${CURRENT}-[0-9]+/version: ${LATEST}-1/" apps/snapclient/metadata.yaml
           sed -i "s/^upstream_version: ${CURRENT}/upstream_version: ${LATEST}/" apps/snapclient/metadata.yaml
           sed -i "s/SNAPCLIENT_VERSION: \"${CURRENT}\"/SNAPCLIENT_VERSION: \"${LATEST}\"/" apps/snapclient/docker-compose.yml
           sed -i "s/ARG SNAPCLIENT_VERSION=${CURRENT}/ARG SNAPCLIENT_VERSION=${LATEST}/" apps/snapclient/assets/Dockerfile
