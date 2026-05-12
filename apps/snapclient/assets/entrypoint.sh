@@ -16,6 +16,8 @@ WINDOW_SEC=5          # within this many seconds
 BACKOFF_SEC=2         # pause before exit, so we don't tight-loop
 PATTERN="Device or resource busy"
 
+printf '[wrapper] snapclient wrapper active (threshold=%s errors/%ss)\n' "$THRESHOLD" "$WINDOW_SEC" >&2
+
 FIFO=$(mktemp -u)
 mkfifo "$FIFO"
 
