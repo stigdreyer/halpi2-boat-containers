@@ -37,6 +37,23 @@ services:
       start_period: 60s
       retries: 5
 
+  # Reflects mDNS multicast from the MA Docker bridge (br-ma) to the LAN so
+  # that Spotify Connect (librespot) is discoverable in the Spotify app.
+  # Docker bridge networking blocks multicast by default; this sidecar runs
+  # with host networking and bridges the two interfaces.
+  mdns-repeater:
+    build:
+      context: ./assets
+      dockerfile: Dockerfile.mdns-repeater
+    pull_policy: build
+    container_name: ma-mdns-repeater
+    restart: unless-stopped
+    network_mode: host
+    logging:
+      driver: journald
+      options:
+        tag: "{{.Name}}"
+
   network-check:
     image: busybox
     container_name: ma-network-check
@@ -55,3 +72,12 @@ services:
       driver: journald
       options:
         tag: "{{.Name}}"
+
+# Fix the Docker bridge interface name so mdns-repeater can reference it
+# by a stable name (br-ma) rather than the hash-based default.
+# halos-proxy-network is still added as a second network by container-packaging-tools.
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-ma

@@ -1,0 +1,11 @@
+FROM debian:trixie-slim AS builder
+RUN apt-get update -qq && apt-get install -y -qq --no-install-recommends \
+        build-essential ca-certificates git && \
+    git clone --depth=1 https://github.com/geekman/mdns-repeater.git /src && \
+    make -C /src && \
+    install -s -m755 /src/mdns-repeater /usr/local/bin/mdns-repeater
+
+FROM debian:trixie-slim
+COPY --from=builder /usr/local/bin/mdns-repeater /usr/local/bin/mdns-repeater
+# Bridge name br-ma is set via driver_opts in docker-compose networks section.
+ENTRYPOINT ["/usr/local/bin/mdns-repeater", "-f", "br-ma", "eth0"]
