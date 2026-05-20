@@ -19,40 +19,17 @@ services:
       # DRM-free local music; populate via rsync or by extending this mount
       # to include a USB stick mountpoint under /media/<user>/<label>.
       - ${CONTAINER_DATA_ROOT}/library:/library:ro
-    # MA's bundled Snapserver listens on these ports. They must be reachable
-    # on the LAN so Snapcast clients (incl. our snapclient app and any future
-    # zone clients) can connect. Web UI on :8095 is reached via Traefik
-    # through halos-proxy-network — no need to publish it here.
-    ports:
-      - "8095:8095"          # MA API/WebSocket — needed by HA (host-networked)
-      - "1704:1704"          # Snapserver stream port
-      - "1705:1705"          # Snapserver TCP control port
-      - "1780:1780"          # Snapserver HTTP / web client
-      - "4953-5153:4953-5153"  # Snapserver dynamic stream range
-    # halos-proxy-network is auto-injected by container-packaging-tools.
+    # Host networking is required so that librespot (Spotify Connect) and
+    # shairport-sync (AirPlay) advertise the HALPI2's real LAN IP rather than
+    # a Docker-internal address that clients cannot reach. Web UI on :8095 and
+    # Snapcast ports are directly accessible on the host without port mapping.
+    network_mode: host
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:8095"]
       interval: 30s
       timeout: 10s
       start_period: 60s
       retries: 5
-
-  # Reflects mDNS multicast from the MA Docker bridge (br-ma) to the LAN so
-  # that Spotify Connect (librespot) is discoverable in the Spotify app.
-  # Docker bridge networking blocks multicast by default; this sidecar runs
-  # with host networking and bridges the two interfaces.
-  mdns-repeater:
-    build:
-      context: ./assets
-      dockerfile: Dockerfile.mdns-repeater
-    pull_policy: build
-    container_name: ma-mdns-repeater
-    restart: unless-stopped
-    network_mode: host
-    logging:
-      driver: journald
-      options:
-        tag: "{{.Name}}"
 
   network-check:
     image: busybox
@@ -72,12 +49,3 @@ services:
       driver: journald
       options:
         tag: "{{.Name}}"
-
-# Fix the Docker bridge interface name so mdns-repeater can reference it
-# by a stable name (br-ma) rather than the hash-based default.
-# halos-proxy-network is still added as a second network by container-packaging-tools.
-networks:
-  default:
-    driver: bridge
-    driver_opts:
-      com.docker.network.bridge.name: br-ma
