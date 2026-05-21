@@ -16,7 +16,7 @@ RUN git init -q . \
  && git fetch --depth 1 origin "$ONA_PLOTTER_SHA" \
  && git checkout -q FETCH_HEAD
 
-RUN dotnet workload restore OnaPlotter/OnaPlotter.csproj \
+RUN dotnet workload install wasm-tools \
  && dotnet publish -c Release OnaPlotter/OnaPlotter.csproj -o /publish
 
 FROM nginx:1.27-alpine
