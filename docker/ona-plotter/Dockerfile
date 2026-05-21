@@ -10,6 +10,11 @@ ARG ONA_PLOTTER_REPO
 ARG ONA_PLOTTER_SHA
 RUN test -n "$ONA_PLOTTER_SHA" || (echo "ONA_PLOTTER_SHA build arg is required" && exit 1)
 
+# Emscripten (used by wasm-tools AOT) calls `python` — not included in the SDK image.
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends python3 python-is-python3 \
+ && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /src
 RUN git init -q . \
  && git remote add origin "$ONA_PLOTTER_REPO" \
